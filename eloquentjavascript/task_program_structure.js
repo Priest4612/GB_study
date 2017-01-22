@@ -89,24 +89,29 @@ function printMessage(message) {
 }
 
 function validData(sizeX, sizeY) {
-  function checkNaN(argument){
-    return isNaN(argument);
-  }
-
-  if (checkNaN(sizeX)) {
-    printMessage('Ошибка ввода данных sizeX не число, введите положительное целое число');
-    return; 
+  if (isNaN(sizeX) || isNaN(sizeY)) {
+    printMessage('Ошибка ввода данных sizeX или sizeY не число, введите положительное целое число');
+    return true; 
   }
 
   if (sizeX <= 0 || sizeY < 0) {
-    printMessage('Ошибка ввода данных sizeX <= 0 или sizeY < 0,  введите положительное целое число');
-    return;
+    printMessage('Ошибка ввода данных sizeX <= 0 или sizeY < 0, введите положительное целое число');
+    return true;
+  }
+
+  if (sizeX != parseInt(sizeX) || sizeY != parseInt(sizeY)) {
+    printMessage('Ошибка ввода данных,  введите положительное целое число');
+    return true;
   }
 }
 
 function makeChessBoard (sizeX, sizeY) {
   if (validData(sizeX, sizeY)) {
     return printMessage('Насяника, все пропало');
+  }
+
+  if (sizeY === 0) {
+    sizeY = sizeX;
   }
 
   for (var i = 0, a = ''; i < sizeX; i++) {
