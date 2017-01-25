@@ -166,9 +166,30 @@ var obj = {
  className: 'open menu'
 }
 
+// Решение автора
 function addClass(obj, cls) {
-  var arr = obj.className ? obj.className.split(' ') : [];
-  
+  var classes = obj.className ? obj.className.split(' ') : [];
+
+  for (var i = 0; i < classes.length; i++) {
+    if (classes[i] == cls) return; // класс уже есть
+  }
+
+  classes.push(cls); // добавить
+
+  obj.className = classes.join(' '); // и обновить свойство
+}
+
+// Мое решение
+function addClass(obj, cls) {
+  if(obj.className) {
+    var arr = obj.className.split(' ');
+  } else {
+  var arr = [];
+  arr.push(cls);
+  obj.className = arr.join(' ');
+  return obj;
+  }
+
   for (var i = 0; i < arr.length; i++) {
     if (cls === arr[i]) return; 
   }
@@ -177,4 +198,78 @@ function addClass(obj, cls) {
 
   obj.className = arr.join(' ');
   return obj;
+}
+
+/*
+  Перевести текст вида border-left-width в borderLeftWidth
+
+  Напишите функцию camelize(str), которая преобразует строки 
+  вида «my-short-string» в «myShortString». То есть, дефисы 
+  удаляются, а все слова после них получают заглавную букву.
+*/
+function camelize(str) {
+  var arr = str.split('-');
+  for (var i = 1; i < arr.length; i++) {
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].slice(1);
+  }
+  return arr.join('');
+}
+
+/* 
+  Функция removeClass
+  У объекта есть свойство className, которое хранит список 
+  «классов» – слов, разделенных пробелами
+*/
+// Мое решение.
+var obj = {
+  className: 'open menu open'
+};
+
+function removeClass(obj, str) {
+  var arr = obj.className ? obj.className.split(' ') : [];
+  console.log('arr length =' + arr.length);
+
+  if (arr === []) {
+    return obj;
+  }
+
+  for (var i = arr.length; i >= 0; i--) {
+    if (arr[i] === str) {
+      console.log('arr [' + i + '] = ' + arr[i] );
+      arr.splice(i, 1);
+    }
+  }
+  console.log(arr.length);
+  if(arr.length === 1) obj.className = arr.join('');
+  obj.className = arr.join(' ');
+}
+
+// Решение автора
+function removeClass(obj, cls) {
+  var classes = obj.className.split(' ');
+
+  for (var i = 0; i < classes.length; i++) {
+    if (classes[i] == cls) {
+      classes.splice(i, 1); // удалить класс  
+      i--;
+    }
+  }
+  obj.className = classes.join(' ');
+}
+
+/*
+Фильтрация массива "на месте"
+важность: 4решение
+Создайте функцию filterRangeInPlace(arr, a, b), которая получает массив с 
+числами arr и удаляет из него все числа вне диапазона a..b. То есть, 
+проверка имеет вид a ≤ arr[i] ≤ b. Функция должна менять сам массив и ничего 
+не возвращать.
+*/
+
+function filterRangeInPlace(arr, a, b){
+  for (i = 0; i < arr.length; i++) {
+    if(i >= a || i <= b) {
+      arr.splice(i, 1);
+    }
+  }
 }
