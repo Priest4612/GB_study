@@ -27,15 +27,6 @@ function getMin(arg_1, arg_2) {
 */
 
 // Мое решение
-function isEven(n) {
-  if ( n  === 0 ) {
-    return true;
-  } else if ( n < 0) {
-    return false;
-  } else {
-    return isEven(n - 2)
-  }
-}
 
 //Решение автора
 function isEven(n) {
